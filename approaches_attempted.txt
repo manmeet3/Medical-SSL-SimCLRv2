@@ -1,0 +1,6 @@
+1) Naively fit alzheimers dataset on pretrained models of imagenet (just out of curiousity)
+
+2) Pre-train, finetune and distill using the existing SIMCLR codebase - led to poor results. See colab simclr_alzheimers_*.ipynb. Main issue was that the existing colabs provided did not
+sufficiently provide working examples with satisfactory accuracy.
+
+3) Implement the Simclr methodlogy from scratch based on the referenced material inside the coalbs
