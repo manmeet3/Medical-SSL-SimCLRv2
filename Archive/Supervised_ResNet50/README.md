@@ -1,4 +1,4 @@
-#ResNet-50 Model
+# ResNet-50 Model
 --------------------------------------------------------------------------------------------------------------------------
 
 DataSet - Alzheimer's Dataset ( 4 class of Images) [https://www.kaggle.com/tourist55/alzheimers-dataset-4-class-of-images]
