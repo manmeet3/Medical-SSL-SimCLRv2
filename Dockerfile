@@ -12,6 +12,7 @@ WORKDIR /app
 COPY ./WebApp /app
 
 RUN pip3 install -r /app/requirements.txt -t /app
+RUN pip3 install gevent -t /app --upgrade
 
 ENTRYPOINT [ "python3" ]
 
