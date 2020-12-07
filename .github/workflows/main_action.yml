@@ -26,7 +26,7 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker build -t clf-app:latest .
-          docker push public-images/clf-app:latest
+          docker build -t msingh3/clf-webapp:latest .
+          docker push msingh3/clf-webapp:latest
 
 
