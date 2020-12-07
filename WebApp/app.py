@@ -28,18 +28,24 @@ app = Flask(__name__)
 # or https://www.tensorflow.org/api_docs/python/tf/keras/applications
 
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
+#from tensorflow.keras.applications.resnet import ResNet
+from tensorflow.keras.applications.resnet50 import ResNet50
+
 model = MobileNetV2(weights='imagenet')
+model2 = ResNet50(weights='imagenet')
+
 
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 
 # Model saved with Keras model.save()
-MODEL_PATH = 'models/densenet121_weights_tf_dim_ordering_tf_kernels.h5'
+#MODEL_PATH = 'models/densenet121_weights_tf_dim_ordering_tf_kernels.h5'
+
 
 # Load your own trained model
-# model = load_model(MODEL_PATH)
-# model._make_predict_function()          # Necessary
-# print('Model loaded. Start serving...')
+#model = load_model(MODEL_PATH)
+#model._make_predict_function()          # Necessary
+#print('Model loaded. Start serving...')
 
 
 def model_predict(img, model):
@@ -56,7 +62,6 @@ def model_predict(img, model):
 
     preds = model.predict(x)
     return preds
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -75,16 +80,28 @@ def predict():
 
         # Make prediction
         preds = model_predict(img, model)
+        preds2 = model_predict(img,model2)
 
-        # Process your result for human
+        # Process your result1 for human
         pred_proba = "{:.3f}".format(np.amax(preds))    # Max probability
         pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
+
+         # Process your result2 for human
+        pred_proba2 = "{:.3f}".format(np.amax(preds2))    # Max probability
+        pred_class2 = decode_predictions(preds2, top=1)   # ImageNet Decode
+
 
         result = str(pred_class[0][0][1])               # Convert to string
         result = result.replace('_', ' ').capitalize()
         
+        result2 = str(pred_class2[0][0][1])               # Convert to string
+        result2 = result2.replace('_', ' ').capitalize()
+
+        final_result = "SIMCLR: " + result + "\nRESNET: " + result2
+
         # Serialize the result, you can add additional fields
-        return jsonify(result=result, probability=pred_proba)
+        return jsonify(result=final_result, probability=pred_proba)
+        #return jsonify(result=result2, probability=pred_proba2)
 
     return None
 
