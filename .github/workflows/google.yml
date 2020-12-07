@@ -13,14 +13,17 @@
 name: Build and Deploy to GKE
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
+    tags:
+      - '**'
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: gitlab-cluster   # TODO: update to cluster name
   GKE_ZONE: us-west2-b  # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+  DEPLOYMENT_NAME: clf-app # TODO: update to deployment name
   IMAGE: static-site
 
 jobs:
