@@ -25,6 +25,7 @@ env:
   GKE_ZONE: us-west2-b  # TODO: update to cluster zone
   DEPLOYMENT_NAME: clf-app # TODO: update to deployment name
   IMAGE: static-site
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true 
 
 jobs:
   setup-build-publish-deploy:
