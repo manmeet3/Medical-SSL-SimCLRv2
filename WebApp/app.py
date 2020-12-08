@@ -41,25 +41,6 @@ def _preprocess_simclr(x):
   return x
 
 
-def models_predict(img, resnet_model, simclr_model=None):
-    resnet_img = img.resize((2048, 1365)) 
-#    simclr_img = _preprocess_simclr(img)
-    # Preprocessing the image
-    resnet_img = image.img_to_array(resnet_img)
-    resnet_img = np.expand_dims(resnet_img, axis=0)
-    # x = np.true_divide(x, 255)
-    # x = np.expand_dims(x, axis=0)
-
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
-    # x = preprocess_input(x, mode='tf')
-
- #   simclr_preds = simclr_model.predict(simclr_img)
-    print(type(resnet_model))
-    resnet_preds = resnet_model.predict(resnet_img)
-    print("prediction sent")
-    return resnet_preds
-
 @app.route('/', methods=['GET'])
 def index():
     # Main page
@@ -73,20 +54,31 @@ def predict():
         img = base64_to_pil(request.json)
 
         # Save the image to ./uploads
-        # img.save("./uploads/image.png")
-        resnet_preds = models_predict(img, resnet_model)
+        img.save("./uploads/image.png")
+#        resnet_preds = models_predict(img, resnet_model)
+        
+        resnet_img = img.resize((2048, 1365)) 
+        # Preprocessing the image
+        resnet_img = image.img_to_array(resnet_img)
+        resnet_img = np.expand_dims(resnet_img, axis=0)
 
 
-        pred_proba = "{:.3f}".format(np.amax(resnet_preds))    # Max probability
+        print(type(resnet_model))
+        resnet_preds = resnet_model.predict(resnet_img)
+
+        print("prediction: ", resnet_preds)
+
+
+        pred_proba = np.argmax(resnet_preds)   # Max probability
         print("class: ", pred_proba)
-        pred_class = plant_patho_labels[int(float(pred_proba))]
+        pred_class = plant_patho_labels[pred_proba]
         print("Proba: ", pred_proba, "class: ", pred_class)
 
 
-        final_result = 'SIMCLR Pred: ' + pred_class #+ '\nRESNET Result: ' + pred_class
+        final_result = pred_class #+ '\nRESNET Result: ' + pred_class
 
         # Serialize the result, you can add additional fields
-        return jsonify(result=final_result, probability=pred_proba)
+        return jsonify(result=final_result, probability=str(pred_proba))
         #return jsonify(result=result2, probability=pred_proba2)
 
     return None
