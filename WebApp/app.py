@@ -97,7 +97,7 @@ def predict():
         result2 = str(pred_class2[0][0][1])               # Convert to string
         result2 = result2.replace('_', ' ').capitalize()
 
-        final_result = "SIMCLR: " + result + "\nRESNET: " + result2
+        final_result = 'SIMCLR Result: ' + result + '\nRESNET Result: ' + result2
 
         # Serialize the result, you can add additional fields
         return jsonify(result=final_result, probability=pred_proba)
