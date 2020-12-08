@@ -28,7 +28,7 @@ app = Flask(__name__)
 # or https://www.tensorflow.org/api_docs/python/tf/keras/applications
 
 
-resnet_model = keras.models.load_model("./models/plantpatho")
+resnet_model = keras.models.load_model("./models/simclr.h5")
 
 plant_patho_labels = ["healthy", "multiple_diseases", "rust", "scab"]
 
@@ -42,7 +42,7 @@ def _preprocess_simclr(x):
 
 
 def models_predict(img, resnet_model, simclr_model=None):
-    resnet_img = img.resize((384, 384)) # We used 384*384 in our resnet notebook
+    resnet_img = img.resize((2048, 1365)) 
 #    simclr_img = _preprocess_simclr(img)
     # Preprocessing the image
     resnet_img = image.img_to_array(resnet_img)
@@ -83,7 +83,7 @@ def predict():
         print("Proba: ", pred_proba, "class: ", pred_class)
 
 
-        final_result = 'SIMCLR Result: ' + pred_class + '\nRESNET Result: ' + pred_class
+        final_result = 'SIMCLR Pred: ' + pred_class #+ '\nRESNET Result: ' + pred_class
 
         # Serialize the result, you can add additional fields
         return jsonify(result=final_result, probability=pred_proba)
