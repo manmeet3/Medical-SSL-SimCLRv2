@@ -54,7 +54,7 @@ def predict():
         img = base64_to_pil(request.json)
 
         # Save the image to ./uploads
-        img.save("./uploads/image.png")
+#        img.save("./uploads/image.png")
 #        resnet_preds = models_predict(img, resnet_model)
         
         resnet_img = img.resize((2048, 1365)) 
