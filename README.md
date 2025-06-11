@@ -1,5 +1,5 @@
 # Overview
-In this project, we use semi-supervised learning to train a plant disease classifier in a lable efficient manner. Initially, we pretrained, and fine tuned the [simclrv2](https://github.com/google-research/simclr) architecture on the TFDS plant village dataset. Finally, we applied transfer learning to adapt the network for leaf pathology detection problem.
+In this project, we use semi-supervised learning to train a plant disease classifier in a label efficient manner. Initially, we pretrained, and fine tuned the [simclrv2](https://github.com/google-research/simclr) architecture on the TFDS plant village dataset. Next, we applied transfer learning to adapt the network for leaf pathology detection problem.
 
 The leaf pathology dataset consists of classifying whether fruit trees and plants are experiencing an on-set of scab, rust or another combination of parasites (multiple diseases) leading to destruction of the garden.
 
@@ -7,8 +7,6 @@ Finally, we deployed the results in a leaf condition classification web applicat
 
 # Datasets
 All datasets used, along with colabs used to download them are available [here](https://drive.google.com/drive/folders/1u9zDyzAc2CBjUM--RBDSqRt0pcj3o5gs?usp=sharing)
-
-OASIS-1 dataset is available at [oasis-brains](http://oasis-brains.org/)
 
 **Note**: You must be logged in with a @sjsu account to view the datasets Google Drive link.
 
